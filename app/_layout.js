@@ -4,7 +4,7 @@ import Slider from '@react-native-community/slider';
 
 import { useState } from 'react';
 
-import {Modalsenha} from '../components/index';
+import {Modalsenha} from '../components/modal';
 
 
 
@@ -21,7 +21,7 @@ export default function _layout() {
         for(let i = 0; i < size; i++){
             senha += caracteres.charAt(Math.floor(Math.random() * tamanho));
         }
-        console.log("Senha gerada: " + senha);
+        console.log("Senha gerada: " + senha);  
 
         setSenha(senha);
         setModalvisivel(true);
@@ -43,7 +43,7 @@ export default function _layout() {
             minimmumTrackTintColor= "#fffb00"
             thumbTintColor="#2F00FFFF"
             value={size}
-            onValueChange={ (value) => setSize(value) }
+            onValueChange={ (value) => setSize(value.toFixed(0)) }
             />
         </View>
 
@@ -53,9 +53,12 @@ export default function _layout() {
             <Text style={styles.botaoText}> Gerar senha </Text>
         </TouchableOpacity>
 
-        <Modal visible={modalvisivel} animationType="fade"
-        >
-            <Modalsenha/>
+        <Modal visible={modalvisivel} 
+        animationType="fade"
+        transparent={true}>
+
+            <Modalsenha senha={senha}
+            handleClose={ () => setModalvisivel(false) } />
         </Modal>
 
     </View>
